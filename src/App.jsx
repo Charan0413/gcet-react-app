@@ -1,6 +1,6 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { USESTATE } from "react";
+import REACTLOGO from "./assets/react.svg";
+import VITELOGO from "/vite.svg";
 import "./App.css";
 import Product from "./components/Product";
 import Cart from "./components/Cart";
