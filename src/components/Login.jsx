@@ -1,49 +1,55 @@
-import React, { useState } from "react";
-import { AppContext } from "../App";
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-export default function Login() {
-  const { users, user, setUser } = useContext(AppContext);// eslint-disable-line no-unused-vars
-  const [msg, setMsg] = useState();
-  const Navigate = useNavigate();
-  const API = import.meta.env.VITE_API_URL;
-  const handleSubmit = async () => {
-    // const found = users.find(
-    //   (value) => value.email === user.email && value.pass === user.pass
-    // );
-    const url = `${API}/users/login`;
-    const found = await axios.post(url, user);
-    console.log(found)
+import { AppContext } from "../App";
 
-    if (found.data.email) {
-      setUser(found.data);
-      Navigate("/");
-    } else {
-      setMsg("Invalid User or Password");
+export default function Login() {
+  const { setUser } = useContext(AppContext);
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [msg, setMsg] = useState("");
+  const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
+
+  const handleSubmit = async () => {
+    try {
+      const url = `${API}/users/login`;
+      const response = await axios.post(url, { email, pass });
+
+      if (response.data.email) {
+        setUser(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data));
+        navigate("/");
+      } else {
+        setMsg("Invalid User or Password");
+      }
+    } catch (error) {
+      setMsg("Login failed: " + error.message);
     }
   };
 
   const goToRegister = () => {
-    Navigate("/register");
+    navigate("/register");
   };
 
   return (
     <div style={{ margin: "30px" }}>
       <h3>Login</h3>
-      {msg}
+      {msg && <p style={{ color: "red" }}>{msg}</p>}
       <p>
         <input
           type="text"
           placeholder="Email address"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </p>
       <p>
         <input
           type="password"
           placeholder="Password"
-          onChange={(e) => setUser({ ...user, pass: e.target.value })}
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
         />
       </p>
       <button onClick={handleSubmit}>Submit</button>
