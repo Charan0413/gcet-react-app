@@ -5,15 +5,15 @@ import '../App.css';
 import './Product.css'
 
 export default function Product() {
-  const { user, cart, setCart } = useContext(AppContext);// eslint-disable-line no-unused-vars
+  const { user, setCart } = useContext(AppContext);
   const [products, setProducts] = useState([]);
   const API = import.meta.env.VITE_API_URL;
 
   const fetchProducts = async () => {
     try {
       console.log(API)
-      const res = await axios.get(`https://gcet-node-app-two.vercel.app/products`);
-     // const res = await axios.get(${API}/products);
+      // const res = await axios.get(`https://gcet-node-app-nine.vercel.app/products`);
+      const res = await axios.get(`${API}/products`);
       setProducts(res.data);
     } catch (err) {
       console.error("Error fetching products:", err);

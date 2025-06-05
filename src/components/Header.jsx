@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <header>
-      <h1>My React Store</h1>
+      <h1> React Store</h1>
       <nav>
         <Link to="/">Home</Link>
         <Link to="/cart">Cart</Link>

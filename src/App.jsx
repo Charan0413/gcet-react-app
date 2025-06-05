@@ -1,7 +1,6 @@
 import { useState, createContext } from "react";
-import reactLogo from "./assets/react.svg";// eslint-disable-line no-unused-vars
-import viteLogo from "/vite.svg";// eslint-disable-line no-unused-vars
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Product from "./components/Product";
 import Cart from "./components/Cart";
 import Login from "./components/Login";
@@ -15,11 +14,12 @@ export const AppContext = createContext();
 function App() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState([]); 
 
   return (
-    <AppContext.Provider value={{ users, setUsers, user, setUser }}>
+    <AppContext.Provider value={{ users, setUsers, user, setUser, cart, setCart }}>
       <BrowserRouter>
-        <Header /> 
+        <Header />
         <main>
           <Routes>
             <Route path="/" element={<Product />} />
@@ -29,8 +29,7 @@ function App() {
             <Route path="/register" element={<Register />} />
           </Routes>
         </main>
-
-        <Footer /> 
+        <Footer />
       </BrowserRouter>
     </AppContext.Provider>
   );
