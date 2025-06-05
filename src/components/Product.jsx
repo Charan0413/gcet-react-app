@@ -2,26 +2,29 @@ import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../App";
 import axios from "axios"; 
 import '../App.css';
-
+import './Product.css'
 
 export default function Product() {
-  const { user } = useContext(AppContext);
-
+  const { user, cart, setCart } = useContext(AppContext);// eslint-disable-line no-unused-vars
   const [products, setProducts] = useState([]);
-   const API = import.meta.env.VITE_API_URL;
-   const fetchProducts = async () => {
-      try {
-         const url = `${API}/products`;
-        const res = await axios.get(url);
-        setProducts(res.data);
-      } catch (err) {
-        console.error("Error", err);
-      }
-    };
+  const API = import.meta.env.VITE_API_URL;
 
+  const fetchProducts = async () => {
+    try {
+      console.log(API)
+      const res = await axios.get(`https://gcet-node-app-two.vercel.app/products`);
+     // const res = await axios.get(${API}/products);
+      setProducts(res.data);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
+
+  const addToCart = (product) => {
+    setCart(prev => [...prev, product]);
+  };
 
   useEffect(() => {
-   
     fetchProducts();
   }, []);
 
@@ -32,8 +35,9 @@ export default function Product() {
 
       <ul style={{ listStyle: "none", padding: 0 }}>
         {products.map(product => (
-          <li key={product.id} style={{ margin: "10px 0" }}>
-            <strong>{product.name}</strong>: ${product.price}
+          <li key={product._id} style={{ margin: "10px 0" }}>
+            <strong>{product.name}</strong>: ${product.price}{" "}
+            <button onClick={() => addToCart(product)}>Add to Cart</button>
           </li>
         ))}
       </ul>
