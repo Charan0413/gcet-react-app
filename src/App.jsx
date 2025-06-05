@@ -1,35 +1,39 @@
-import { USESTATE } from "react";
-import REACTLOGO from "./assets/react.svg";
-import VITELOGO from "/vite.svg";
-import "./App.css";
+import { useState, createContext } from "react";
+import reactLogo from "./assets/react.svg";// eslint-disable-line no-unused-vars
+import viteLogo from "/vite.svg";// eslint-disable-line no-unused-vars
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Product from "./components/Product";
 import Cart from "./components/Cart";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-function App() {
-  return (
-    <div>
-      <BrowserRouter>
-        <header>
-          <h1>My Online Shop</h1>
-          <Link to="/">Home</Link>-
-          <Link to="/cart">Cart</Link>
-          <hr />
-        </header>
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Logout from "./components/Logout";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
+export const AppContext = createContext();
+
+function App() {
+  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
+
+  return (
+    <AppContext.Provider value={{ users, setUsers, user, setUser }}>
+      <BrowserRouter>
+        <Header /> 
         <main>
           <Routes>
-            <Route index element={<Product />} />
-            <Route path="/" element={<Product/>}></Route>
-            <Route path="/cart" element={<Cart/>}></Route>
+            <Route path="/" element={<Product />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </main>
 
-        <footer>
-          <hr />
-          &copy; 2005. All rights Reserved.
-        </footer>
+        <Footer /> 
       </BrowserRouter>
-    </div>
+    </AppContext.Provider>
   );
 }
+
 export default App;
