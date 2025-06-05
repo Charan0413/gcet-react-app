@@ -1,13 +1,41 @@
-/* Main container for the product list */
-.product-list-box {
-  padding: 40px;
-  background-color: #f9f9f9;
+.product-heading {
+  color: #d86c7a;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.product-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 10px;
+  scroll-snap-type: x mandatory;
+}
+
+.product-card {
+  min-width: 220px;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 16px;
-  margin: 40px auto;
-  max-width: 900px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
   text-align: center;
-  font-size: 24px;
-  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  scroll-snap-align: start;
+}
+.product-card h3 {
+  margin: 0 0 10px;
+}
+
+.product-card button {
+  background-color: #d86c7a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color: #c05567;
 }

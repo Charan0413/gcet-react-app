@@ -1,8 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AppContext } from "../App";
-import axios from "axios"; 
+import axios from "axios";
 import '../App.css';
-import './Product.css'
+import './Product.css';
 
 export default function Product() {
   const { user, setCart } = useContext(AppContext);
@@ -11,8 +11,6 @@ export default function Product() {
 
   const fetchProducts = async () => {
     try {
-      console.log(API)
-      // const res = await axios.get(`https://gcet-node-app-nine.vercel.app/products`);
       const res = await axios.get(`${API}/products`);
       setProducts(res.data);
     } catch (err) {
@@ -31,16 +29,17 @@ export default function Product() {
   return (
     <div className="form-container">
       {user && <h2 className="form-title">Welcome, {user.name}!</h2>}
-      <p style={{ color: "#d86c7a" }}>Product List</p><br />
+      <p className="product-heading">Product List</p>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
+      <div className="product-grid">
         {products.map(product => (
-          <li key={product._id} style={{ margin: "10px 0" }}>
-            <strong>{product.name}</strong>: ${product.price}{" "}
+          <div className="product-card" key={product._id}>
+            <h3>{product.name}</h3>
+            <p>Price: ${product.price}</p>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
