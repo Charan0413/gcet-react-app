@@ -1,110 +1,78 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* App.css */
 body {
+  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom, #fdf6e3, #f5f0e1);
-  color: #4a3f35;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background-color: #f5f5f5;
 }
 
-header,
-footer {
-  background-color: #f3e5ab;
-  padding: 20px;
+header, footer {
+  background-color: #1e1e2f;
+  color: white;
+  padding: 1rem 2rem;
   text-align: center;
 }
 
-header h1 {
-  color: #7c6a4d;
-  margin-bottom: 10px;
-}
-
 nav a {
-  color: #7c6a4d;
+  margin: 0 1rem;
   text-decoration: none;
-  margin: 0 10px;
-  font-weight: 500;
+  color: white;
+  font-weight: bold;
 }
 
 nav a:hover {
-  text-decoration: underline;
+  color: #ffd700;
+}
+
+.main-section {
+  padding: 2rem;
+  min-height: 80vh;
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 footer {
   margin-top: auto;
-  font-size: 14px;
-  color: #7c6a4d;
 }
 
-a {
-  color: #7c6a4d;
-  text-decoration: none;
-  margin: 0 10px;
-  font-weight: 500;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-main {
-  flex: 1;
+.product-grid {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
+  gap: 2rem;
 }
 
-.form-container {
-  border: 2px dotted #c8b78e;
-  border-radius: 10px;
-  background: linear-gradient(to right, #fdf6e3, #f5f0e1);
-  padding: 30px 25px;
-  width: 300px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+.product-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 220px;
   text-align: center;
-  margin: 0 auto;
+  transition: transform 0.2s ease;
 }
 
-.form-title {
-  color: #7c6a4d;
-  margin-bottom: 20px;
+.product-card:hover {
+  transform: scale(1.05);
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #fffaf0;
-  color: #4a3f35;
-  font-size: 14px;
+.product-card h3 {
+  margin: 0.5rem 0;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #a78c63;
+.product-card button {
+  background-color: #1e1e2f;
   color: white;
-  font-size: 15px;
   border: none;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
   border-radius: 6px;
   cursor: pointer;
-  margin-top: 5px;
 }
 
-button:hover {
-  background-color: #8b734c;
-}
-
-.form-container h2,
-.form-container p {
-  color: #7c6a4d;
+.product-card button:hover {
+  background-color: #34345c;
 }

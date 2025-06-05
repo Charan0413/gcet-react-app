@@ -1,5 +1,5 @@
 .product-heading {
-  color: #d86c7a;
+  color: #000000;
   font-size: 20px;
   margin-bottom: 20px;
 }
@@ -28,7 +28,7 @@
 }
 
 .product-card button {
-  background-color: #d86c7a;
+  background-color: #1e1e2f;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -37,5 +37,5 @@
 }
 
 .product-card button:hover {
-  background-color: #c05567;
+  background-color: #1e1e2f;
 }
