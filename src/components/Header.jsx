@@ -11,7 +11,8 @@ export default function Header() {
       <h1>React Store</h1>
       <nav>
         <Link to="/">Home</Link>
-        <Link to="/cart">Cart</Link>
+       <Link to="/cart">Cart</Link>
+       <Link to="/orders">Your Orders</Link>
         {user ? (
           <Link to="/logout">Logout</Link>
         ) : (

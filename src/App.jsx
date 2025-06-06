@@ -8,6 +8,7 @@ import Cart from "./components/Cart";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Logout from "./components/Logout";
+import Orders from "./components/Orders";
 
 import "./App.css";
 
@@ -57,6 +58,7 @@ function App() {
               <Route path="/cart" element={user ? <Cart /> : <Navigate to="/login" />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={user ? <Logout /> : <Navigate to="/login" />} />
+               <Route path="/orders" element={<Orders/>}/>
               <Route path="/register" element={<Register />} />
             </Routes>
           </main>
