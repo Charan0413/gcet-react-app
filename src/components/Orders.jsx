@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../App.css";
-import "./Orders.css"; // 💡 Import the custom Amazon-like styles
+import "./Orders.css";
 
 export default function Orders() {
   const { user } = useContext(AppContext);
@@ -15,12 +16,19 @@ export default function Orders() {
       return;
     }
 
-    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-    const userOrders = savedOrders.filter(order => order.userId === user.email);
-    setOrders(userOrders);
+    axios
+      .get(`http://localhost:8080/orders/${user.email}`)
+      .then((res) => {
+        console.log("📦 Orders fetched:", res.data);
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching orders:", err);
+        setOrders([]);
+      });
   }, [user, navigate]);
 
-  const totalOrderValue = orders.reduce((sum, order) => sum + order.total, 0);
+  const totalOrderValue = orders.reduce((sum, order) => sum + order.price, 0);
 
   return (
     <div className="orders-container">
@@ -30,17 +38,11 @@ export default function Orders() {
         <p style={{ color: "#d86c7a" }}>No orders placed yet.</p>
       ) : (
         <>
-          {orders.map((order) => (
-            <div key={order.id} className="order-card">
-              <h4>Order #{order.id}</h4>
-              <p><strong>Total:</strong> ${order.total.toFixed(2)}</p>
-              <ul className="order-items-list">
-                {order.items.map((item, idx) => (
-                  <li key={idx}>
-                    {item.name} - ${item.price} × {item.quantity || 1}
-                  </li>
-                ))}
-              </ul>
+          {orders.map((order, index) => (
+            <div key={index} className="order-card">
+              <h4>Order #{index + 1}</h4>
+              <p><strong>Total:</strong> ${order.price.toFixed(2)}</p>
+              <p><i>Placed on:</i> {new Date(order.createdAt).toLocaleString()}</p>
             </div>
           ))}
 

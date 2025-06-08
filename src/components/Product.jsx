@@ -34,8 +34,19 @@ export default function Product() {
       <div className="product-grid">
         {products.map(product => (
           <div className="product-card" key={product._id}>
+            {product.image && (
+              <img
+                src={product.image}
+                alt={product.name}
+                className="product-image"
+                style={{ width: "100%", height: "200px", objectFit: "cover", borderRadius: "10px" }}
+              />
+            )}
             <h3>{product.name}</h3>
-            <p>Price: ${product.price}</p>
+            {product.description && (
+              <p style={{ fontSize: "14px", color: "#555" }}>{product.description}</p>
+            )}
+            <p><strong>Price:</strong> ${product.price}</p>
             <button onClick={() => addToCart(product)}>Add to Cart</button>
           </div>
         ))}

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../App.css";
 import "./Product.css";
 
@@ -25,28 +26,31 @@ export default function Cart() {
     0
   );
 
-  const placeOrder = () => {
+  const placeOrder = async () => {
     if (!user) {
       navigate("/login");
       return;
     }
 
-    const order = {
-      id: Date.now(),
-      userId: user.email,
-      items: cart,
-      total: totalPrice,
-      date: new Date().toISOString(),
-    };
+    try {
+      // Send order to backend
+      const response = await axios.post("http://localhost:8080/orders", {
+        email: user.email,
+        price: totalPrice,
+      });
 
-    const ordersKey = `orders_${user.email}`;
-    const existingOrders = JSON.parse(localStorage.getItem(ordersKey)) || [];
-    localStorage.setItem(ordersKey, JSON.stringify([...existingOrders, order]));
+      console.log("✅ Order placed:", response.data);
 
-    setCart([]);
-    localStorage.setItem(`cart_${user.email}`, JSON.stringify([])); // optional: also clear localStorage cart
+      // Clear cart
+      setCart([]);
+      localStorage.setItem(`cart_${user.email}`, JSON.stringify([])); // Optional
 
-    navigate("/orders");
+      // Navigate to orders page
+      navigate("/orders");
+    } catch (error) {
+      console.error("❌ Failed to place order:", error);
+      alert("Failed to place order. Please try again.");
+    }
   };
 
   return (
@@ -54,7 +58,7 @@ export default function Cart() {
       <h3 className="form-title">Your Cart</h3>
 
       {cart.length === 0 ? (
-        <p style={{ color: "'#1e1e2f'" }}>Your cart is empty </p>
+        <p style={{ color: "#1e1e2f" }}>Your cart is empty</p>
       ) : (
         <>
           <div className="product-grid">
@@ -81,7 +85,7 @@ export default function Cart() {
             ))}
           </div>
 
-          <h4 style={{ marginTop: "20px", color: '#1e1e2f' }}>
+          <h4 style={{ marginTop: "20px", color: "#1e1e2f" }}>
             Grand Total: ${totalPrice.toFixed(2)}
           </h4>
 
